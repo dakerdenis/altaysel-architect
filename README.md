@@ -58,16 +58,3 @@
 
 ---
 
-## 🚀 Installation (Local Dev)
-
-```bash
-git clone https://github.com/dakerdenis/altaysel.az.git
-cd altaysel.az
-
-composer install
-npm install && npm run build
-
-cp .env.example .env
-php artisan key:generate
-php artisan migrate
-# altaysel-architect
