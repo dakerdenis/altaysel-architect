@@ -47,14 +47,33 @@
 | **SEO**         | Metadata, sharing-ready links |
 
 ---
-
 ## 📸 Screenshots
 
-> _You can add screenshots later:_  
-> - Interactive map UI  
-> - Project detail page  
-> - Admin dashboard (project editor)  
-> - Social share preview
+### 🗺️ Interactive Map
+Custom-built JavaScript map allows users to browse architectural projects by region. Each marker links to a project with full details.
+![Interactive Map](assets/screenshots/interactive-map.png)
 
 ---
+
+### 🏗️ Project Detail Page
+Detailed project view with title, description, media, and the ability to instantly share the project on social media (Facebook, Twitter, WhatsApp, Telegram).
+![Project Detail](assets/screenshots/project-detail.png)
+
+---
+
+### 🛠️ Admin Panel — Project Editor
+Secure admin panel with intuitive UI for editing architectural projects, assigning regions, uploading images, and setting project years.
+![Admin Project Editor](assets/screenshots/admin-project-editor.png)
+
+---
+
+### 📰 News Editor
+Admins can create and publish news posts, keeping clients and partners informed about the bureau's activity and achievements.
+![News Editor](assets/screenshots/news-editor.png)
+
+---
+
+### 📆 Project Timeline View
+Users can browse all projects through a visual timeline slider, structured by decade and year — perfect for an archive-rich organization dating back to the 1960s.
+![Project Timeline](assets/screenshots/project-timeline.png)
 
