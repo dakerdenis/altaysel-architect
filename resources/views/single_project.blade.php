@@ -234,7 +234,7 @@
                     <!---- Check if "video_url" exists and include iframe if available --->
                     @if (!empty($project->video_url))
                         <div class="single__project__video">
-                            <iframe width="100%" height="100%" src="{{ $project->video_url }}"
+                            <iframe width="100%" height="400" src="{{ $project->video_url }}"
                                 title="YouTube video player" frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowfullscreen>
