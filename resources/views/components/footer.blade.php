@@ -187,7 +187,7 @@
                         <img src="../style/imgs/daker_created.svg" alt="">
                     </a>
                     <p class="font_change">
-                        Copyright 2024
+                        Copyright 2025
                     </p>
                 </div>
 

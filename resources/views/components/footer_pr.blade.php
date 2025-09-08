@@ -180,7 +180,7 @@
                         <img src="{{asset('style/imgs/daker_created.svg')}}" alt="">
                     </a>
                     <p>
-                        Copyright 2024
+                        Copyright 2025
                     </p>
                 </div>
 
