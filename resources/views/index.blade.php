@@ -754,7 +754,7 @@
         <div class=" future__block" id="futureBlock">
             <div class="future__block__name">
                 <div class="future__block__name-line">
-                    <a href="{{ route('news', ['locale' => $locale]) }}" style="font-size: 30pxı font-weight: 600;">
+                    <a href="{{ route('news', ['locale' => $locale]) }}" style="font-size: 30px; font-weight: 600;">
                         {{ $locale === 'az' ? 'Bütün xəbərlər' : 'Все новости' }}
                     </a>
 

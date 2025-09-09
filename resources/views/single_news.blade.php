@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ $locale }}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,8 @@
 
     <!-- Open Graph -->
     <meta property="og:title" content="{{ $locale === 'az' ? $news->name_az : $news->name_ru }}" />
-    <meta property="og:description" content="{{ $locale === 'az' ? Str::limit($news->desc_az, 180) : Str::limit($news->desc_ru, 180) }}" />
+    <meta property="og:description"
+        content="{{ $locale === 'az' ? Str::limit($news->desc_az, 180) : Str::limit($news->desc_ru, 180) }}" />
     <meta property="og:url" content="{{ request()->fullUrl() }}" />
     <meta property="og:type" content="article" />
     @if ($news->main_image)
@@ -17,11 +19,14 @@
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ $locale === 'az' ? $news->name_az : $news->name_ru }}">
-    <meta name="twitter:description" content="{{ $locale === 'az' ? Str::limit($news->desc_az, 180) : Str::limit($news->desc_ru, 180) }}">
-    <meta name="twitter:image" content="{{ $news->main_image ? asset('archi/public/uploads/projects/' . $news->main_image) : '' }}">
+    <meta name="twitter:description"
+        content="{{ $locale === 'az' ? Str::limit($news->desc_az, 180) : Str::limit($news->desc_ru, 180) }}">
+    <meta name="twitter:image"
+        content="{{ $news->main_image ? asset('archi/public/uploads/projects/' . $news->main_image) : '' }}">
 
     <!-- SEO -->
-    <meta name="description" content="{{ $locale === 'az' ? Str::limit($news->desc_az, 180) : Str::limit($news->desc_ru, 180) }}">
+    <meta name="description"
+        content="{{ $locale === 'az' ? Str::limit($news->desc_az, 180) : Str::limit($news->desc_ru, 180) }}">
     <meta name="keywords" content="{{ $locale === 'az' ? $news->name_az : $news->name_ru }}">
 
     <!-- Styles -->
@@ -32,18 +37,26 @@
     <!-- Fancybox -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     @if ($locale === 'ru')
         <link rel="stylesheet" href="{{ asset('style/ru_style.css') }}">
     @endif
+    <style>
+        .gallery__photos__wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    </style>
 </head>
+
 <body id="background_change">
-<div id="background_change" class="main__wrapper">
-    @include('components.header_nw')
-            <!--? ---MAIN BLOCK------->
+    <div id="background_change" class="main__wrapper">
+        @include('components.header_nw')
+        <!--? ---MAIN BLOCK------->
         <div class="main__block" id="background_change_main">
 
             <!--* container for all----->
@@ -165,95 +178,95 @@
 
         </div>
 
-    <div class="projects__block" id="projectsBlock">
-        <div class="projects__desc-block">
-            <div class="projects__block-name">
-                <div class="projects__block-name_name">
-                    {{ $locale === 'az' ? $news->name_az : $news->name_ru }}
-                </div>
+        <div class="projects__block" id="projectsBlock">
+            <div class="projects__desc-block">
+                <div class="projects__block-name">
+                    <div class="projects__block-name_name">
+                        {{ $locale === 'az' ? $news->name_az : $news->name_ru }}
+                    </div>
 
-                <div class="project-single__back">
-                    <a href="{{ route('news', ['locale' => $locale]) }}">
-                        {{ $locale === 'az' ? 'Geri' : 'Назад' }}
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="projects__block-wrapper">
-            <div class="gallery__photos__wrapper">
-                @if ($news->main_image)
-                    <a href="{{ asset('archi/public/uploads/projects/' . $news->main_image) }}"
-                       data-fancybox="gallery"
-                       data-caption="{{ $locale === 'az' ? $news->name_az : $news->name_ru }}">
-                        <img src="{{ asset('archi/public/uploads/projects/' . $news->main_image) }}"
-                             alt="Main Image" />
-                    </a>
-                @endif
-
-                @if ($news->images)
-                    @foreach (json_decode($news->images) as $image)
-                        <a href="{{ asset('archi/public/uploads/projects/' . $image) }}"
-                           data-fancybox="gallery"
-                           data-caption="{{ $locale === 'az' ? $news->name_az : $news->name_ru }}">
-                            <img src="{{ asset('archi/public/uploads/projects/' . $image) }}"
-                                 alt="Gallery Image" />
-                        </a>
-                    @endforeach
-                @endif
-            </div>
-
-            <div class="single__project__info">
-                <div class="single__project__year">
-                    <p>{{ $locale === 'az' ? 'Tarix:' : 'Год:' }}</p>
-                    <p>{{ $news->year }}</p>
-                </div>
-
-
-
-                <div class="single__project__description">
-                    {{ $locale === 'az' ? $news->desc_az : $news->desc_ru }}
-                </div>
-
-                <br>
-
-                <div class="single__project__social">
-                    <p>{{ $locale === 'az' ? "Paylaş:" : 'Поделиться:' }}</p>
-                    <div class="social-share-buttons">
-                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}"
-                           target="_blank" class="social-button facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ urlencode(request()->fullUrl()) }}"
-                           target="_blank" class="social-button linkedin">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                        <a href="https://vk.com/share.php?url={{ urlencode(request()->fullUrl()) }}"
-                           target="_blank" class="social-button vk">
-                            <i class="fab fa-vk"></i>
-                        </a>
-                        <a href="https://pinterest.com/pin/create/button/?url={{ urlencode(request()->fullUrl()) }}"
-                           target="_blank" class="social-button pinterest">
-                            <i class="fab fa-pinterest-p"></i>
-                        </a>
-                        <a href="https://telegram.me/share/url?url={{ urlencode(request()->fullUrl()) }}"
-                           target="_blank" class="social-button telegram">
-                            <i class="fab fa-telegram-plane"></i>
-                        </a>
-                        <a href="https://api.whatsapp.com/send?text={{ urlencode(request()->fullUrl()) }}"
-                           target="_blank" class="social-button whatsapp">
-                            <i class="fab fa-whatsapp"></i>
+                    <div class="project-single__back">
+                        <a href="{{ route('news', ['locale' => $locale]) }}">
+                            {{ $locale === 'az' ? 'Geri' : 'Назад' }}
                         </a>
                     </div>
                 </div>
             </div>
+
+            <div class="projects__block-wrapper">
+                <div class="gallery__photos__wrapper">
+                    @if ($news->main_image)
+                        <a href="{{ asset('archi/public/uploads/projects/' . $news->main_image) }}"
+                            data-fancybox="gallery"
+                            data-caption="{{ $locale === 'az' ? $news->name_az : $news->name_ru }}">
+                            <img src="{{ asset('archi/public/uploads/projects/' . $news->main_image) }}"
+                                alt="Main Image" />
+                        </a>
+                    @endif
+
+                    @if ($news->images)
+                        @foreach (json_decode($news->images) as $image)
+                            <a href="{{ asset('archi/public/uploads/projects/' . $image) }}" data-fancybox="gallery"
+                                data-caption="{{ $locale === 'az' ? $news->name_az : $news->name_ru }}">
+                                <img src="{{ asset('archi/public/uploads/projects/' . $image) }}"
+                                    alt="Gallery Image" />
+                            </a>
+                        @endforeach
+                    @endif
+                </div>
+
+                <div class="single__project__info">
+                    <div class="single__project__year">
+                        <p>{{ $locale === 'az' ? 'Tarix:' : 'Год:' }}</p>
+                        <p>{{ $news->year }}</p>
+                    </div>
+
+
+
+                    <div class="single__project__description">
+                        {{ $locale === 'az' ? $news->desc_az : $news->desc_ru }}
+                    </div>
+
+                    <br>
+
+                    <div class="single__project__social">
+                        <p>{{ $locale === 'az' ? 'Paylaş:' : 'Поделиться:' }}</p>
+                        <div class="social-share-buttons">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}"
+                                target="_blank" class="social-button facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ urlencode(request()->fullUrl()) }}"
+                                target="_blank" class="social-button linkedin">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="https://vk.com/share.php?url={{ urlencode(request()->fullUrl()) }}"
+                                target="_blank" class="social-button vk">
+                                <i class="fab fa-vk"></i>
+                            </a>
+                            <a href="https://pinterest.com/pin/create/button/?url={{ urlencode(request()->fullUrl()) }}"
+                                target="_blank" class="social-button pinterest">
+                                <i class="fab fa-pinterest-p"></i>
+                            </a>
+                            <a href="https://telegram.me/share/url?url={{ urlencode(request()->fullUrl()) }}"
+                                target="_blank" class="social-button telegram">
+                                <i class="fab fa-telegram-plane"></i>
+                            </a>
+                            <a href="https://api.whatsapp.com/send?text={{ urlencode(request()->fullUrl()) }}"
+                                target="_blank" class="social-button whatsapp">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        @include('components.footer_pr')
     </div>
 
-    @include('components.footer_pr')
-</div>
-
     <script src="{{ asset('js/projects.js') }}"></script>
-<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
 </body>
+
 </html>
