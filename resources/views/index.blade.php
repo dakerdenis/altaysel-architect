@@ -30,26 +30,28 @@
     <meta property="og:url" content="{{ request()->fullUrl() }}">
     <meta property="og:type" content="website">
     @if (request()->has('projectId'))
-    @php
-        $project = collect($projectsData)->merge($futureProjectsData ?? [])->firstWhere('id', request('projectId'));
-    @endphp
-    @if ($project)
-        <meta property="og:title" content="{{ $project->name }}">
-        <meta property="og:description" content="{{ $project->description }}">
-        <meta property="og:image" content="{{ asset('archi/public/uploads/projects/' . $project->main_image) }}">
-        <meta property="og:image:alt" content="{{ $project->name }}">
+        @php
+            $project = collect($projectsData)
+                ->merge($futureProjectsData ?? [])
+                ->firstWhere('id', request('projectId'));
+        @endphp
+        @if ($project)
+            <meta property="og:title" content="{{ $project->name }}">
+            <meta property="og:description" content="{{ $project->description }}">
+            <meta property="og:image" content="{{ asset('archi/public/uploads/projects/' . $project->main_image) }}">
+            <meta property="og:image:alt" content="{{ $project->name }}">
+        @else
+            <!-- Fallback: No project with the given ID -->
+            <meta property="og:title" content="Alt.Ay.Sel">
+            <meta property="og:description" content="Altaysel Co is an architecture bureau based in Baku, Azerbaijan.">
+            <meta property="og:image" content="{{ asset('archi/public/uploads/facebook.jpg') }}">
+        @endif
     @else
-        <!-- Fallback: No project with the given ID -->
+        <!-- Default OG tags when no projectId is provided -->
         <meta property="og:title" content="Alt.Ay.Sel">
         <meta property="og:description" content="Altaysel Co is an architecture bureau based in Baku, Azerbaijan.">
         <meta property="og:image" content="{{ asset('archi/public/uploads/facebook.jpg') }}">
     @endif
-@else
-    <!-- Default OG tags when no projectId is provided -->
-    <meta property="og:title" content="Alt.Ay.Sel">
-    <meta property="og:description" content="Altaysel Co is an architecture bureau based in Baku, Azerbaijan.">
-    <meta property="og:image" content="{{ asset('archi/public/uploads/facebook.jpg') }}">
-@endif
 
 
 
@@ -279,7 +281,7 @@
                         <p>{{ $locale === 'az'
                             ? 'Alt.Ay.Sel Co Azərbaycanda ilk icra hakimiyyəti binası (Suraxanı), Heydər Əliyev parkı, Heydər Əliyev mərkəzi və ilk Gəncədə ekoloji park müəllifidir. Bu günə kimi Suraxanı atəşgahının yenidən qurulması, 327 saylı orta məktəb, Oriqami uşaqların rabritasiya mərkəzi, Günəşli qəsəbəsində istirahət mərkəzi, uşaq bağçası, Bülbülə qəsəbəsindən atəşgaha aparan yolun bərpa və rekanstruksiyası, Gəncə dram teatr, Gəncə şəhər filarmoniyası, Gəncə biznes mərkəzi və s. layihələrin müəllifidir.'
                             : 'Компания  Alt.Ay.Sel CO является автором первого в Азербайджане здания исполнительной власти (Сураханы), парка Гейдара Алиева, Центра Гейдара Алиева и первого экологического парка в Гяндже. На сегодняшний день реконструкция Сураханского перемирия, средней школы №327, детского реабилитационного центра «Оригами», базы отдыха в поселке Гюнешли, детского сада, восстановление и реконструкция поселка Бюльбюля, Гянджинского драматического театра, также Гянджинской городской филармонии, 
-                                                                        бизнес-центр и др.' }}
+                                                                                                бизнес-центр и др.' }}
 
 
 
@@ -288,9 +290,9 @@
                         <p>
                             {{ $locale === 'az'
                                 ? '2012-ci ildən etibarən Alt.Ay.Sel şirkətinin nəznində Aysel Hüseynovanın rəhbərliyi ilə AHR dizayn və tədris mərkəzi fəaliyyət göstərir.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                '
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            '
                                 : 'С 2012 года при компании Alt.Ay.Sel CO работает центр обучения AHR studio под руководством Айсель Гусейновой.
-                                                                                    ' }}
+                                                                                                                ' }}
 
                         </p>
                     </div>
@@ -748,10 +750,15 @@
 
             </div>
         </div>
-        <!--? ---FUTURE PROJECTS------->
+        <!--? ---NEWS------->
         <div class=" future__block" id="futureBlock">
             <div class="future__block__name">
-                <div class="future__block__name-line"></div>
+                <div class="future__block__name-line">
+                    <a href="{{ route('news', ['locale' => $locale]) }}" style="font-size: 30pxı font-weight: 600;">
+                        {{ $locale === 'az' ? 'Bütün xəbərlər' : 'Все новости' }}
+                    </a>
+
+                </div>
                 <div id="color_change" class="future__block__name-name font_change">
 
 
@@ -907,7 +914,7 @@
                                 {{ $locale === 'az'
                                     ? ' Məhşur memar Yusif Qədimovun tələbəsi Ramiz müəllim 1960-ci ildə Bakı şəhərində anadan olub.'
                                     : 'Ученик известного архитектора Юсифа Гадимова, Рамиз Гусейнов родился в Баку в 1960 году.
-                                                                                                                                                                                                                                                                                                                                                                                                                                ' }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                ' }}
 
                             </p>
 
@@ -915,8 +922,8 @@
                                 {{ $locale === 'az'
                                     ? ' 📚1977-ci ildə 44 saylı orta məktəbi bitirərək Azərbaycan Memarlıq və İnşaat Universitetinin “Memarlıq” fakültəsinin bakalavr pilləsinə daxil olmuşdur.'
                                     : '📚В 1977 году, окончив среднюю школу №44, поступил на бакалавриат на факультет «Архитектура» Азербайджанского Университета Архитектуры и Строительства.
-                                                                                                                                                                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                                                                                                                                                                                                ' }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                ' }}
 
                             </p>
 
@@ -936,7 +943,7 @@
                                 {{ $locale === 'az'
                                     ? '🔸1992-1994 - Bakı şəhəri XLSB-də baş memar vəzifəsində çalışmışdır'
                                     : '🔸1992-1994 - работал главным архитектором в XLSB города Баку.
-                                                                                                                                                                                                                                                                                                                                                                ' }}
+                                                                                                                                                                                                                                                                                                                                                                                                ' }}
 
                             </p>
                             <p>

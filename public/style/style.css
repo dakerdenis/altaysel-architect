@@ -1871,9 +1871,12 @@ h6 {
 
 .future__block__name-line {
   width: 423px;
-  height: 3px;
-  background-color: var(--orange);
-
+  height: 50px;
+  border-bottom: 4px solid var(--orange);
+}
+.future__block__name-line  a {
+  color: #1E1E1E;
+  font-size: 25px;
 }
 
 .future__block__name-name {

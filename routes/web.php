@@ -25,6 +25,16 @@ Route::get('/{locale}/projects/{year}', [ArchitectController::class, 'projects_y
 Route::get('/{locale}/projects/{year}/{id}', [ArchitectController::class, 'single_project'])->name('single_project');
 
 
+Route::get('/{locale}/news', [ArchitectController::class, 'news'])
+    ->where('locale', 'az|ru')
+    ->name('news');
+    
+Route::get('/{locale}/news/{id}', [ArchitectController::class, 'single_news'])
+    ->where(['locale' => 'az|ru', 'id' => '[0-9]+'])
+    ->name('single_news');
+
+
+/******************* */
 /************* Authentication Routes *************/
 
 Route::get('/admin', [AdminController::class, 'admin'])->name('admin.login');

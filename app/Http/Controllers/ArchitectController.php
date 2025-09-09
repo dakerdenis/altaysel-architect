@@ -17,8 +17,8 @@ class ArchitectController extends Controller
 {
     public function redirectToLanguage($locale)
     {
-            // Collect query parameters, such as `projectId`
-    $queryParams = request()->query();
+        // Collect query parameters, such as `projectId`
+        $queryParams = request()->query();
         // Check if the requested locale is valid
         if ($locale === 'az' || $locale === 'ru') {
             return Redirect::route('index', array_merge(['locale' => $locale], $queryParams));
@@ -37,15 +37,15 @@ class ArchitectController extends Controller
     {
         // Fetch the project by ID
         $project = Project::findOrFail($id);
-    
+
         // Return the project data (adjust this logic as needed for your frontend)
         return response()->json([
             'locale' => $locale,
             'project' => $project
         ]);
     }
-    
-    
+
+
     public function index($locale)
     {
         $all_sliders = Slider::all();
@@ -53,19 +53,19 @@ class ArchitectController extends Controller
         $all_services = Service::all();
         $future_projects = FutureProjects::all();
         $map_projects = MapProjects::all();
-        $contacts = Contact::first(); 
+        $contacts = Contact::first();
         $preloadedProject = null;
-    
+
         // Pass projects and future projects to the view
         $projectsData = Project::all();
         $futureProjectsData = FutureProjects::all();
-    
+
         // Check if a projectId is passed
         if (request()->has('projectId')) {
             $projectId = request()->get('projectId');
             $preloadedProject = MainProject::find($projectId);
         }
-    
+
         return view('index', [
             'locale' => $locale,
             'future_projects' => $future_projects,
@@ -79,13 +79,13 @@ class ArchitectController extends Controller
             'futureProjectsData' => $futureProjectsData, // Pass to the view
         ]);
     }
-    
-    
-    
+
+
+
 
     public function projects_year($locale, $year)
     {
-        $contacts = Contact::first(); 
+        $contacts = Contact::first();
         switch ($year) {
             case 1970:
                 $projects = Project::where('year', '<=', 1970)->get();
@@ -114,15 +114,39 @@ class ArchitectController extends Controller
         }
 
 
-        return view('year', ['locale' => $locale, 'all_projects' => $projects, 'year' => $year, 'contacts'=>$contacts]);
+        return view('year', ['locale' => $locale, 'all_projects' => $projects, 'year' => $year, 'contacts' => $contacts]);
     }
-    public function single_project($locale, $year, $id){
-        $contacts = Contact::first(); 
+    public function single_project($locale, $year, $id)
+    {
+        $contacts = Contact::first();
         $project = Project::findOrFail($id);
 
-        return view('single_project',['locale' => $locale, 'project' => $project, 'year' => $year, 'contacts'=>$contacts]);
+        return view('single_project', ['locale' => $locale, 'project' => $project, 'year' => $year, 'contacts' => $contacts]);
     }
 
 
+    public function news($locale)
+    {
+        $contacts = Contact::first();
+        // Самые свежие сверху; меняй сортировку при необходимости
+        $all_news = FutureProjects::orderBy('year', 'desc')->get();
+
+        return view('news', [
+            'locale' => $locale,
+            'all_news' => $all_news,
+            'contacts' => $contacts,
+        ]);
+    }
+public function single_news($locale, $id)
+{
+    $contacts = Contact::first();
+    $news = FutureProjects::findOrFail($id);
+
+    return view('single_news', [
+        'locale'   => $locale,
+        'news'     => $news,
+        'contacts' => $contacts,
+    ]);
+}
 }
 
